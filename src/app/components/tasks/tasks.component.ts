@@ -10,7 +10,7 @@ import { TaskService } from 'src/app/services/task.service';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
-  tasks: Task[] = TASKS;
+  tasks: Task[] = [];
 
   // Services must be defined here
   constructor(private taskService: TaskService) {}
@@ -22,4 +22,13 @@ export class TasksComponent implements OnInit {
       this.tasks = tasks;
     });
   }
+
+  deleteTask(task: Task) {
+    this.taskService
+      .deleteTask(task)
+      .subscribe(
+        () => (this.tasks = this.tasks.filter((t) => t.id !== task.id)))
+  }
+
+
 }
